@@ -32,7 +32,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.23137255, 0.11372549, 0.09803922, 1)
 
-[node name="Unit" type="Area2D"]
+[node name="Unit" type="Area2D" groups=["units"]]
 script = ExtResource("1_fvc8g")
 metadata/_edit_group_ = true
 
@@ -76,7 +76,7 @@ target = NodePath("..")
 script = ExtResource("4_vgvef")
 target = NodePath("../Visuals/Skin")
 lerp_seconds = 0.3
-rotation_multiplier = 40
+max_rotation_degrees = 30
 
 [node name="OutlineHighlighter" type="Node2D" parent="." node_paths=PackedStringArray("visuals")]
 script = ExtResource("6_3po7s")
