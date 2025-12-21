@@ -1,20 +1,22 @@
-[gd_scene load_steps=19 format=4 uid="uid://bnorr72v70psr"]
+[gd_scene load_steps=21 format=4 uid="uid://bnorr72v70psr"]
 
 [ext_resource type="Script" uid="uid://di3pvr5j4c2in" path="res://scenes/arena/arena.gd" id="1_fv88w"]
+[ext_resource type="AudioStream" uid="uid://dwse76yhsgxvm" path="res://assets/music/alexander_ehlers_twists.ogg" id="2_8kk48"]
 [ext_resource type="TileSet" uid="uid://c0go48qum61yq" path="res://scenes/arena/tileset.tres" id="2_w4nra"]
 [ext_resource type="Texture2D" uid="uid://mbxv0ayrsu3d" path="res://assets/sprites/star_particle.png" id="3_t3vx8"]
 [ext_resource type="Script" uid="uid://dbych5g0vdsm0" path="res://components/play_area.gd" id="4_rhjlh"]
 [ext_resource type="Script" uid="uid://diiyjh0avyahe" path="res://components/unit_grid.gd" id="5_tp84n"]
 [ext_resource type="Script" uid="uid://cpadr0ehvwkox" path="res://components/tile_highlighter.gd" id="6_8kk48"]
-[ext_resource type="PackedScene" uid="uid://cqojjfkfl4qhv" path="res://scenes/unit/unit.tscn" id="7_wqbss"]
-[ext_resource type="Resource" uid="uid://6mrpwjjhqbwd" path="res://data/units/bjorn.tres" id="8_fir7s"]
-[ext_resource type="Resource" uid="uid://14p3xe54mupy" path="res://data/units/arthur.tres" id="9_gy0qm"]
-[ext_resource type="Resource" uid="uid://bq4emsen4mcss" path="res://data/units/robin.tres" id="10_dh340"]
 [ext_resource type="Script" uid="uid://drh5sninttxv2" path="res://components/unit_mover.gd" id="11_l0cts"]
+[ext_resource type="AudioStream" uid="uid://xgrsj3clmat0" path="res://assets/sfx/unit_place.ogg" id="11_tp84n"]
+[ext_resource type="Script" uid="uid://blua8lajyl4u0" path="res://components/unit_combiner.gd" id="12_s83md"]
 [ext_resource type="Script" uid="uid://kv725gonxus2" path="res://components/unit_spawner.gd" id="12_ybinm"]
 [ext_resource type="PackedScene" uid="uid://ciw57rknb5qtr" path="res://scenes/sell_portal/sell_portal.tscn" id="13_5ilg6"]
+[ext_resource type="AudioStream" uid="uid://dubwbrp3e8hg3" path="res://assets/sfx/combine.ogg" id="13_rhjlh"]
 [ext_resource type="Resource" uid="uid://bark83rvw1mxv" path="res://data/player/player_stats.tres" id="14_bxbl0"]
+[ext_resource type="PackedScene" uid="uid://b3sihb34ic676" path="res://scenes/team_size_ui/team_size_ui.tscn" id="14_w4nra"]
 [ext_resource type="PackedScene" uid="uid://2rot5a5nqm33" path="res://scenes/shop/shop.tscn" id="15_w4nra"]
+[ext_resource type="PackedScene" uid="uid://cj0c10vlvxc4r" path="res://scenes/traits/traits.tscn" id="16_t3vx8"]
 
 [sub_resource type="Curve" id="Curve_olpmc"]
 _data = [Vector2(0, 0.04878056), 0.0, 0.0, 0, 0, Vector2(0.24439916, 1), 0.0, 0.0, 0, 0, Vector2(0.80651724, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -40,9 +42,11 @@ color = Color(1, 1, 1, 0.44313726)
 
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_fv88w")
+arena_music_stream = ExtResource("2_8kk48")
 metadata/_edit_lock_ = true
 
 [node name="Visuals" type="Node2D" parent="."]
+position = Vector2(-32, 0)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -68,7 +72,7 @@ lifetime = 6.0
 process_material = SubResource("ParticleProcessMaterial_7ft05")
 
 [node name="GameArea" type="TileMapLayer" parent="." node_paths=PackedStringArray("unit_grid", "tile_highlighter")]
-position = Vector2(192, 32)
+position = Vector2(160, 32)
 tile_map_data = PackedByteArray("AAAAAAAAAAADAAwAAAAAAAIAAAAAAAwAAAAAAAQAAAAAAAwAAAABAAEAAAAAAAwAAAABAAMAAAAAAAwAAAABAAUAAAABAAwAAAACAAAAAAAAAAwAAAACAAIAAAABAAwAAAACAAQAAAACAAwAAAADAAEAAAADAAwAAAADAAMAAAAAAAwAAAADAAUAAAADAAwAAAAEAAAAAAAAAAwAAAAEAAIAAAAAAAwAAAAEAAQAAAAAAAwAAAAFAAEAAAAAAAwAAAAFAAMAAAABAAwAAAAFAAUAAAAAAAwAAAAGAAAAAAAAAAwAAAAGAAIAAAADAAwAAAAGAAQAAAAAAAwAAAAHAAEAAAAAAAwAAAAHAAMAAAAAAAwAAAAHAAUAAAAAAAwAAAAIAAAAAAABAAwAAAAIAAIAAAAAAAwAAAAIAAQAAAABAAwAAAAJAAEAAAAAAAwAAAAJAAMAAAACAAwAAAAJAAUAAAAAAAwAAAA=")
 tile_set = ExtResource("2_w4nra")
 script = ExtResource("4_rhjlh")
@@ -97,7 +101,7 @@ highlight_layer = NodePath("../Highlight")
 tile = Vector2i(3, 0)
 
 [node name="Bench" type="TileMapLayer" parent="." node_paths=PackedStringArray("unit_grid", "tile_highlighter")]
-position = Vector2(192, 288)
+position = Vector2(160, 288)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAsAAAABAAAAAAAAAAcAAAACAAAAAAAAAAsAAAADAAAAAAAAAAcAAAAEAAAAAAAAAAsAAAAFAAAAAAAAAAcAAAAGAAAAAAAAAAsAAAAHAAAAAAAAAAcAAAAIAAAAAAAAAAsAAAAJAAAAAAAAAAcAAAA=")
 tile_set = ExtResource("2_w4nra")
 script = ExtResource("4_rhjlh")
@@ -120,31 +124,45 @@ play_area = NodePath("..")
 highlight_layer = NodePath("../Highlight")
 tile = Vector2i(3, 0)
 
-[node name="Bjorn" parent="." instance=ExtResource("7_wqbss")]
-position = Vector2(352, 160)
-stats = ExtResource("8_fir7s")
-
-[node name="Arthur" parent="." instance=ExtResource("7_wqbss")]
-position = Vector2(256, 160)
-stats = ExtResource("9_gy0qm")
-
-[node name="Robin" parent="." instance=ExtResource("7_wqbss")]
-position = Vector2(288, 160)
-stats = ExtResource("10_dh340")
+[node name="SellPortal" parent="." instance=ExtResource("13_5ilg6")]
+position = Vector2(80, 256)
 
 [node name="UnitMover" type="Node" parent="." node_paths=PackedStringArray("play_areas")]
 script = ExtResource("11_l0cts")
 play_areas = [NodePath("../GameArea"), NodePath("../Bench")]
+unit_place_sound = ExtResource("11_tp84n")
 
 [node name="UnitSpawner" type="Node" parent="." node_paths=PackedStringArray("bench", "game_area")]
 script = ExtResource("12_ybinm")
 bench = NodePath("../Bench")
 game_area = NodePath("../GameArea")
 
-[node name="SellPortal" parent="." instance=ExtResource("13_5ilg6")]
-position = Vector2(80, 256)
-player_stats = ExtResource("14_bxbl0")
+[node name="UnitCombiner" type="Node" parent="." node_paths=PackedStringArray("buffer_timer")]
+script = ExtResource("12_s83md")
+buffer_timer = NodePath("BufferTimer")
+combine_sound = ExtResource("13_rhjlh")
+metadata/_custom_type_script = "uid://blua8lajyl4u0"
+
+[node name="BufferTimer" type="Timer" parent="UnitCombiner"]
+one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Shop" parent="UI" instance=ExtResource("15_w4nra")]
+unique_name_in_owner = true
+
+[node name="TeamSizeUI" parent="UI" node_paths=PackedStringArray("arena_grid") instance=ExtResource("14_w4nra")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_top = 6.0
+offset_right = 23.0
+offset_bottom = 30.0
+grow_horizontal = 2
+size_flags_vertical = 0
+player_stats = ExtResource("14_bxbl0")
+arena_grid = NodePath("../../GameArea/ArenaUnitGrid")
+
+[node name="Traits" parent="UI" node_paths=PackedStringArray("arena_grid") instance=ExtResource("16_t3vx8")]
+arena_grid = NodePath("../../GameArea/ArenaUnitGrid")

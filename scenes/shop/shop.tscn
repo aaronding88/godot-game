@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://2rot5a5nqm33"]
+[gd_scene load_steps=9 format=3 uid="uid://2rot5a5nqm33"]
 
 [ext_resource type="PackedScene" uid="uid://w1lo01nlodka" path="res://scenes/gold_display/gold_display.tscn" id="1_ctpgp"]
 [ext_resource type="Script" uid="uid://c7p2klftda1yt" path="res://scenes/shop/shop.gd" id="1_ptf86"]
 [ext_resource type="Resource" uid="uid://bark83rvw1mxv" path="res://data/player/player_stats.tres" id="2_ge4d2"]
 [ext_resource type="PackedScene" uid="uid://d005ckt0immex" path="res://scenes/unit_card/unit_card.tscn" id="2_ptf86"]
+[ext_resource type="Resource" uid="uid://nwxrotvqkblo" path="res://data/unit_pool/unit_pool.tres" id="2_xcdpw"]
 [ext_resource type="PackedScene" uid="uid://dslwyerdd5orj" path="res://scenes/xp_button/xp_button.tscn" id="3_ge4d2"]
 [ext_resource type="PackedScene" uid="uid://yhf6kkdshhty" path="res://scenes/reroll_button/reroll_button.tscn" id="4_xcdpw"]
 [ext_resource type="PackedScene" uid="uid://bidln2o0b4tnn" path="res://scenes/xp_tracker/xp_tracker.tscn" id="5_tp26b"]
@@ -19,6 +20,7 @@ offset_bottom = 353.0
 grow_horizontal = 0
 theme_override_constants/separation = 10
 script = ExtResource("1_ptf86")
+unit_pool = ExtResource("2_xcdpw")
 player_stats = ExtResource("2_ge4d2")
 
 [node name="Top" type="HBoxContainer" parent="."]

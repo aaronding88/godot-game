@@ -14,12 +14,17 @@ config/name="DungeonAutobattler"
 run/main_scene="uid://bnorr72v70psr"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+MusicPlayer="*res://scenes/audio_player/music_player.tscn"
+SFXPlayer="*res://scenes/audio_player/sfx_player.tscn"
+
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/window_width_override=1300
-window/size/window_height_override=700
+window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

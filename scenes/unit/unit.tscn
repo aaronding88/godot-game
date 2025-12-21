@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqojjfkfl4qhv"]
+[gd_scene load_steps=15 format=3 uid="uid://cqojjfkfl4qhv"]
 
 [ext_resource type="Texture2D" uid="uid://cx1ivjobggp8n" path="res://assets/sprites/rogues.png" id="1_fmv3f"]
 [ext_resource type="Script" uid="uid://cfkv2lck7yice" path="res://scenes/unit/unit.gd" id="1_fvc8g"]
 [ext_resource type="Material" uid="uid://bb8m5fhpi4wqn" path="res://assets/shaders/2d_outline_shader.tres" id="2_vgvef"]
+[ext_resource type="PackedScene" uid="uid://ivljyq3r6c27" path="res://scenes/tier_icon/tier_icon.tscn" id="4_0wuuu"]
 [ext_resource type="Script" uid="uid://bq53ptg04knxc" path="res://components/drag_and_drop.gd" id="4_bhlit"]
 [ext_resource type="Script" uid="uid://cdubtgn2r2uac" path="res://components/velocity_based_rotation.gd" id="4_vgvef"]
 [ext_resource type="Script" uid="uid://dqugtot2np7d5" path="res://components/outline_highlighter.gd" id="6_3po7s"]
+[ext_resource type="Resource" uid="uid://6mrpwjjhqbwd" path="res://data/units/bjorn.tres" id="6_vqlpx"]
+[ext_resource type="Script" uid="uid://xprd2oedjj24" path="res://components/unit_animations.gd" id="10_l0n34"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmv3f"]
 size = Vector2(36, 36)
@@ -34,6 +37,7 @@ border_color = Color(0.23137255, 0.11372549, 0.09803922, 1)
 
 [node name="Unit" type="Area2D" groups=["units"]]
 script = ExtResource("1_fvc8g")
+stats = ExtResource("6_vqlpx")
 metadata/_edit_group_ = true
 
 [node name="Visuals" type="CanvasGroup" parent="."]
@@ -68,6 +72,11 @@ theme_override_styles/background = SubResource("StyleBoxFlat_vh40f")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bhlit")
 show_percentage = false
 
+[node name="TierIcon" parent="." instance=ExtResource("4_0wuuu")]
+offset_top = -12.0
+offset_bottom = -2.0
+stats = ExtResource("6_vqlpx")
+
 [node name="DragAndDrop" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("4_bhlit")
 target = NodePath("..")
@@ -83,6 +92,11 @@ script = ExtResource("6_3po7s")
 visuals = NodePath("../Visuals")
 outline_color = Color(1, 1, 1, 1)
 outline_thickness = 2
+
+[node name="UnitAnimations" type="Node" parent="." node_paths=PackedStringArray("unit")]
+script = ExtResource("10_l0n34")
+unit = NodePath("..")
+metadata/_custom_type_script = "uid://xprd2oedjj24"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
