@@ -8,7 +8,7 @@ signal quick_sell_pressed
 
 # Export variables would be better here for larger more complex stuff,
 # rather than hard coding
-@onready var skin: Sprite2D = $Visuals/Skin
+@onready var skin: PackedSprite2D = $Visuals/Skin
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var mana_bar: ProgressBar = $ManaBar
 @onready var tier_icon: TierIcon = $TierIcon
@@ -42,7 +42,7 @@ func set_stats(value: UnitStats) -> void:
 	if not Engine.is_editor_hint():
 		stats = value.duplicate()
 		
-	skin.region_rect.position = Vector2(stats.skin_coordinates) * Arena.CELL_SIZE
+	skin.coordinates = stats.skin_coordinates
 	tier_icon.stats = stats
 
 func reset_after_dragging(starting_position: Vector2) -> void:
