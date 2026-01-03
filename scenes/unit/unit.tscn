@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://dqugtot2np7d5" path="res://components/outline_highlighter.gd" id="6_3po7s"]
 [ext_resource type="PackedScene" uid="uid://xye1gyiwe26f" path="res://scenes/mana_bar/mana_bar.tscn" id="6_7jhsn"]
 [ext_resource type="Resource" uid="uid://6mrpwjjhqbwd" path="res://data/units/bjorn.tres" id="6_vqlpx"]
-[ext_resource type="Script" uid="uid://xprd2oedjj24" path="res://unit_animations.gd" id="10_l0n34"]
+[ext_resource type="Script" uid="uid://xprd2oedjj24" path="res://custom_nodes/unit_animations.gd" id="10_l0n34"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmv3f"]
 size = Vector2(36, 36)
