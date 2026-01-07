@@ -4,7 +4,7 @@ extends Area2D
 
 signal quick_sell_pressed
 
-@export var stats: UnitStats : set = set_stats
+@export var stats: UnitStats : set = _set_stats
 
 # Export variables would be better here for larger more complex stuff,
 # rather than hard coding
@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 	if is_hovered and event.is_action_pressed("quick_sell"):
 		quick_sell_pressed.emit()
 
-func set_stats(value: UnitStats) -> void:
+func _set_stats(value: UnitStats) -> void:
 	stats = value
 	
 	if value == null:

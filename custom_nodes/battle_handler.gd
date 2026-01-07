@@ -20,16 +20,22 @@ signal enemy_won
 
 @onready var scene_spawner: SceneSpawner = $SceneSpawner
 
+var player_test: BattleUnit
+var enemy_test: BattleUnit
+var enemy_target: BattleUnit
+var player_target: BattleUnit
+
 func _ready() -> void:
 	game_state.changed.connect(_on_game_state_changed)
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test1"):
-		get_tree().call_group("player_units", "queue_free")
-	if event.is_action_pressed("test2"):
-		get_tree().call_group("enemy_units", "queue_free")
+		var ai_unit := get_tree().get_nodes_in_group("player_units")[0] as BattleUnit
+		ai_unit.unit_ai.enabled = true
 	
 func _setup_battle_unit(unit_coord: Vector2i, new_unit: BattleUnit) -> void:
+	new_unit.stats.reset_health()
+	new_unit.stats.reset_mana()
 	new_unit.global_position = game_area.get_global_from_tile(unit_coord) + Vector2(0, -Arena.QUARTER_CELL_SIZE.y)
 	new_unit.tree_exited.connect(_on_battle_unit_died)
 	battle_unit_grid.add_unit(unit_coord, new_unit)
@@ -56,6 +62,13 @@ func _prepare_fight() -> void:
 		new_unit.stats = ZOMBIE
 		new_unit.stats.team = UnitStats.Team.ENEMY
 		_setup_battle_unit(unit_coord, new_unit)
+		
+	# Debugger
+	player_test = get_tree().get_nodes_in_group("player_units")[1]
+	enemy_test = get_tree().get_nodes_in_group("enemy_units")[1]
+	player_target = get_tree().get_nodes_in_group("enemy_units").pick_random()
+	enemy_target = get_tree().get_nodes_in_group("player_units").pick_random()
+	
 	
 func _on_battle_unit_died() -> void:
 	# We already concluded the battle
